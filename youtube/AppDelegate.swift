@@ -24,8 +24,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController =  UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         
-        UINavigationBar.appearance().barTintColor =  UIColor(red: 230/255, green: 32/255, blue: 32/255, alpha: 1)
+        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 230, green: 30, blue: 31)
         
+        application.statusBarStyle = .lightContent
+        
+        // Add a custom background to statusbar
+        let customStatusBar = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20))
+        customStatusBar.backgroundColor = UIColor.rgb(red: 194, green: 31, blue: 31)
+        window?.addSubview(customStatusBar)
+        
+        /* Didn't work
+        window?.addConstrainsWithFormat(format: "H:|[v0]|", views: customStatusBar)
+        window?.addConstrainsWithFormat(format: "V:|[v0(10)]", views: customStatusBar)
+        */
         return true
     }
 

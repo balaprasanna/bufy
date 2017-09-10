@@ -26,6 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 230, green: 30, blue: 31)
         
+        
+        // get rid of the black shadow on top of the collection view
+        
+        UINavigationBar.appearance().shadowImage = UIImage()
+        //UINavigationBar.appearance().setBackgroundImage(UIImage(), barMetrics: UIBarMetrics.default)
+        //UINavigationBar.appearance().setBackgroundImage:forBarMetrics
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        // Status bar : style
         application.statusBarStyle = .lightContent
         
         // Add a custom background to statusbar

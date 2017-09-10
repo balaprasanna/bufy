@@ -8,7 +8,9 @@
 
 import UIKit
 
-class VideoCell: UICollectionViewCell {
+class VideoCell: BaseCell {
+    
+    /*
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -17,6 +19,7 @@ class VideoCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+ */
     
     let thumbnailImageView : UIImageView  = {
         let imageview = UIImageView()
@@ -67,7 +70,7 @@ class VideoCell: UICollectionViewCell {
     
     
     
-    func setupViews() {
+    override func setupViews() {
         addSubview(thumbnailImageView)
         addSubview(profileView)
         addSubview(titleLable)

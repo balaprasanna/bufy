@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "bala_small.jpg",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "account@2x.png",
       "scale" : "2x"
     },
     {

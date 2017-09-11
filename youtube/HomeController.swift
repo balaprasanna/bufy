@@ -11,6 +11,26 @@ import UIKit
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     
+    var videos : [Video] = {
+        var kanyeChannel = Channel()
+        kanyeChannel.name = "BalaIsCoolWithPython"
+        kanyeChannel.profileImageName = "bala_ss"
+        
+        var blankSpaceVideo = Video()
+        blankSpaceVideo.thumbnailImage = "bala_small"
+        blankSpaceVideo.title = "Taylor Swift - Blank Space"
+        blankSpaceVideo.channel = kanyeChannel
+        
+        blankSpaceVideo.numberOfViews = 2345678900
+        
+        var badBloodVideo = Video()
+        badBloodVideo.thumbnailImage = "bala_small"
+        badBloodVideo.title = "Taylor Swift - Bad blood Extra Extra Extra Extra"
+        badBloodVideo.channel = kanyeChannel
+        badBloodVideo.numberOfViews = 2345678900
+        return [blankSpaceVideo, badBloodVideo]
+    }()
+    
     // This is to select the First Icon on the CollectionView inside Menubar
     override func viewDidAppear(_ animated: Bool) {
         
@@ -41,6 +61,26 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.contentInset = cvInsets
         collectionView?.scrollIndicatorInsets = cvInsets
         setupMenuBar()
+        setupNavBarButtons()
+        
+    }
+    
+    func setupNavBarButtons() {
+        let searchImage =  UIImage(named: "search_icon")?.withRenderingMode(.alwaysOriginal)
+        let searchBarButtonItem =  UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
+        
+        let moreImage =  UIImage(named: "nav_more_icon")?.withRenderingMode(.alwaysOriginal)
+        let moreBarButtonItem =  UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(handleMore))
+        
+        navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
+    }
+    
+    func handleSearch(){
+        print ("Search")
+    }
+    
+    func handleMore(){
+        print ("More")
     }
     
     let menuBar : MenuBar = {
@@ -76,11 +116,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath) as! VideoCell
+        
+        cell.video = videos[indexPath.item]
+        //cell.video?.title
         
         //cell.backgroundColor = UIColor.gray
         return cell
@@ -90,7 +133,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         //Compute the height in 16/9 = 1.777 Ratio
         //let height = view.frame.width / 1.777
         let height = (view.frame.width - 16 - 16) * 9/16
-        return CGSize(width: view.frame.width, height: height + 16 + 68)
+        return CGSize(width: view.frame.width, height: height + 16 + 88)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

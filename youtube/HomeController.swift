@@ -10,7 +10,9 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    var videos: [Video]?
     
+    /*
     var videos : [Video] = {
         var kanyeChannel = Channel()
         kanyeChannel.name = "BalaIsCoolWithPython"
@@ -30,6 +32,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         badBloodVideo.numberOfViews = 2345678900
         return [blankSpaceVideo, badBloodVideo]
     }()
+ */
     
     // This is to select the First Icon on the CollectionView inside Menubar
     override func viewDidAppear(_ animated: Bool) {
@@ -62,6 +65,60 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.scrollIndicatorInsets = cvInsets
         setupMenuBar()
         setupNavBarButtons()
+        loadVideo()
+    }
+    
+    func loadVideo(){
+        
+        let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
+
+        let task = URLSession.shared.dataTask(with: url!) { (Data, URLResponse, Error) in
+            if Error != nil {
+                print(Error!)
+                return
+            }
+            
+            if let data = Data {
+                //print(data)
+                do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                let dict = json as! [[String:AnyObject]]
+                self.videos = [Video]()
+                    
+                    for item in dict {
+                        let video = Video()
+                            video.title = item["title"] as! String?
+                            video.thumbnailImage = item["thumbnail_image_name"] as! String?
+                        let channel = Channel()
+                            channel.name = (item["channel"] as! [String:AnyObject])["name"] as! String?
+                            channel.profileImageName = ( item["channel"] as! [String:AnyObject] )["profile_image_name"] as! String?
+                        video.channel = channel
+                        video.numberOfViews = item["number_of_views"] as! NSNumber?
+                        print(item)
+                        self.videos?.append(video)
+                        
+                }
+                    DispatchQueue.main.async {
+                        self.collectionView?.reloadData()
+                    }
+                    
+                    
+                } catch let jsonError {
+                    print(jsonError)
+                }
+                
+            }
+            
+            /*
+             guard let data = NSString(data: Data!, encoding: String.Encoding.utf8.rawValue) else {
+             print("Error")
+             return
+             }
+             */
+            
+            
+        }
+        task.resume()
         
     }
     
@@ -116,13 +173,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath) as! VideoCell
         
-        cell.video = videos[indexPath.item]
+        cell.video = videos?[indexPath.item]
         //cell.video?.title
         
         //cell.backgroundColor = UIColor.gray

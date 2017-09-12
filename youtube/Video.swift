@@ -12,7 +12,7 @@ class Video: NSObject {
     var thumbnailImage :String?
     var title :String?
     var numberOfViews: NSNumber?
-    var uploadedData: NSDate?
+    var uploadedDate: NSDate?
     
     var channel: Channel?
 }

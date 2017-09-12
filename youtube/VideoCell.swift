@@ -13,10 +13,11 @@ class VideoCell: BaseCell {
     var video: Video? { 
         didSet {
             titleLable.text = video?.title
-            thumbnailImageView.image =  UIImage(named: (video?.thumbnailImage)!)
-            if let profileImageName =  video?.channel?.profileImageName {
-                profileView.image = UIImage(named: profileImageName)
-            }
+            //thumbnailImageView.image =  UIImage(named: (video?.thumbnailImage)!)
+            
+//            if let profileImageName =  video?.channel?.profileImageName {
+//                profileView.image = UIImage(named: profileImageName)
+//            }
             if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews {
             
                 let nf = NumberFormatter()
@@ -41,7 +42,25 @@ class VideoCell: BaseCell {
                 
             }
             
+         updateImageView()
+         
         }
+    }
+    
+    func updateImageView() {
+        //thumbnailImageView.image =  UIImage(named: (video?.thumbnailImage)!)
+        if let thumnailImageName = video?.thumbnailImage {
+            if (thumbnailImageView.image == nil ) {
+                thumbnailImageView.setImageFromUrl(urlString: thumnailImageName)
+            }
+        }
+        if let profileImageName =  video?.channel?.profileImageName {
+            if (profileView.image == nil ) {
+                profileView.setImageFromUrl(urlString: profileImageName)
+            }
+
+        }
+        
     }
     
     /*
@@ -58,7 +77,7 @@ class VideoCell: BaseCell {
     let thumbnailImageView : UIImageView  = {
         let imageview = UIImageView()
         //imageview.backgroundColor = UIColor.blue
-        imageview.image = UIImage(named: "bala_small")
+        //imageview.image = UIImage(named: "bala_small")
         imageview.contentMode = .scaleAspectFill
         imageview.clipsToBounds = true
         imageview.translatesAutoresizingMaskIntoConstraints = false
@@ -77,9 +96,10 @@ class VideoCell: BaseCell {
     let profileView : UIImageView = {
         let imageView = UIImageView()
         //imageView.backgroundColor = UIColor.green
-        imageView.image = UIImage(named: "bala_ss")
+        //imageView.image = UIImage(named: "bala_ss")
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints=false
         return imageView
     }()
@@ -103,6 +123,28 @@ class VideoCell: BaseCell {
         return textView
     }()
     
+    let videoTimeView: UILabel = {
+//        let vtview = UIView()
+//        vtview.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+//        vtview.translatesAutoresizingMaskIntoConstraints = false
+//        
+        let labelview = UILabel()
+        labelview.text = "0:15"
+        labelview.textAlignment = .center
+        labelview.textColor = UIColor.white
+        labelview.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        labelview.translatesAutoresizingMaskIntoConstraints = false
+        //labelview.addConstrainsWithFormat(format: "H:[v0]", views: labelview)
+        //labelview.addConstrainsWithFormat(format: "V:[v0]", views: labelview)
+        
+//        vtview.addSubview(labelview)
+        
+        labelview.addConstrainsWithFormat(format: "H:[v0(44)]", views: labelview)
+        labelview.addConstrainsWithFormat(format: "V:[v0(24)]", views: labelview)
+        
+        return labelview
+    }()
+    
     var titleLableHeightConstrain : NSLayoutConstraint?
     
     override func setupViews() {
@@ -111,6 +153,7 @@ class VideoCell: BaseCell {
         addSubview(titleLable)
         addSubview(descLable)
         addSubview(seperatorView)
+        addSubview(videoTimeView)
         
         
         addConstrainsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
@@ -161,6 +204,15 @@ class VideoCell: BaseCell {
         //addConstrainsWithFormat(format: "V:[v0(20)]", views: descLable)
         //addConstrainsWithFormat(format: "H:|-20-[v0]|", views: descLable)
         //backgroundColor = UIColor.brown
+        
+        
+        // Constrains for Video Length Text
+        //Right Constrains
+        addConstraint(NSLayoutConstraint(item: videoTimeView, attribute: .right, relatedBy: .equal, toItem: thumbnailImageView, attribute: .right, multiplier: 1, constant: -8))
+        //Bottom Constrains
+        addConstraint(NSLayoutConstraint(item: videoTimeView, attribute: .bottom, relatedBy: .equal, toItem: thumbnailImageView, attribute: .bottom, multiplier: 1, constant: -8))
+        
+        
     }
     
     

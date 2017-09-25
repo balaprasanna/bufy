@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  youtube
+//  bufy
 //
 //  Created by std-user01 on 9/9/17.
 //  Copyright © 2017 std-user01. All rights reserved.
@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController =  UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         
-        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 230, green: 30, blue: 31)
+        UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 75, green: 173, blue: 156)
+        //UINavigationBar.appearance().barTintColor = UIColor.rgb(red: 230, green: 30, blue: 31)
         
         
         // get rid of the black shadow on top of the collection view
@@ -39,7 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Add a custom background to statusbar
         let customStatusBar = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20))
-        customStatusBar.backgroundColor = UIColor.rgb(red: 194, green: 31, blue: 31)
+        customStatusBar.backgroundColor = UIColor.rgb(red: 85, green: 173, blue: 156)
+            //UIColor.rgb(red: 194, green: 31, blue: 31)
         window?.addSubview(customStatusBar)
         
         /* Didn't work

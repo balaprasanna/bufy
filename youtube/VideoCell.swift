@@ -1,6 +1,6 @@
 //
 //  VideoCell.swift
-//  youtube
+//  bufy
 //
 //  Created by std-user01 on 10/9/17.
 //  Copyright © 2017 std-user01. All rights reserved.
@@ -13,11 +13,11 @@ class VideoCell: BaseCell {
     var video: Video? { 
         didSet {
             titleLable.text = video?.title
-            //thumbnailImageView.image =  UIImage(named: (video?.thumbnailImage)!)
+//            thumbnailImageView.image =  UIImage(named: (video?.thumbnailImage)!)
             
-//            if let profileImageName =  video?.channel?.profileImageName {
-//                profileView.image = UIImage(named: profileImageName)
-//            }
+            //if let profileImageName =  video?.channel?.profileImageName {
+                //profileView.image = UIImage(named: (video?.channel?.profileImageName)!)
+            //}
             if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews {
             
                 let nf = NumberFormatter()
@@ -50,16 +50,16 @@ class VideoCell: BaseCell {
     func updateImageView() {
         //thumbnailImageView.image =  UIImage(named: (video?.thumbnailImage)!)
         if let thumnailImageName = video?.thumbnailImage {
-            if (thumbnailImageView.image == nil ) {
+            //if (thumbnailImageView.image == nil ) {
                 thumbnailImageView.setImageFromUrl(urlString: thumnailImageName)
-            }
+            //}
         }
         if let profileImageName =  video?.channel?.profileImageName {
-            if (profileView.image == nil ) {
+//            if (profileView.image == nil ) {
                 profileView.setImageFromUrl(urlString: profileImageName)
             }
-
-        }
+//
+//        }
         
     }
     

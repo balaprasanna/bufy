@@ -1,6 +1,6 @@
 //
 //  MenuCell.swift
-//  youtube
+//  bufy
 //
 //  Created by std-user01 on 10/9/17.
 //  Copyright © 2017 std-user01. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  MenuBar.swift
-//  youtube
+//  bufy
 //
 //  Created by std-user01 on 10/9/17.
 //  Copyright © 2017 std-user01. All rights reserved.
@@ -13,7 +13,8 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     lazy var collectionView : UICollectionView = {
        let layout = UICollectionViewFlowLayout()
        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(red: 230, green: 30, blue: 31)
+        cv.backgroundColor = UIColor.rgb(red: 75, green: 173, blue: 156)
+            //UIColor.rgb(red: 230, green: 30, blue: 31)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.delegate = self
         cv.dataSource = self

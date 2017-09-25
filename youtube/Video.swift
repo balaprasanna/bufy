@@ -1,6 +1,6 @@
 //
 //  Video.swift
-//  youtube
+//  bufy
 //
 //  Created by std-user01 on 10/9/17.
 //  Copyright © 2017 std-user01. All rights reserved.
@@ -21,4 +21,11 @@ class Video: NSObject {
 class Channel: NSObject {
     var name: String?
     var profileImageName: String?
+}
+
+class Gify : NSObject {
+    var thumbnailImage :String?
+    var title :String?
+    var numberOfViews: NSNumber?
+    var uploadedDate: NSDate?
 }

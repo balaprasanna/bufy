@@ -1,6 +1,6 @@
 //
 //  HomeController.swift
-//  youtube
+//  bufy
 //
 //  Created by std-user01 on 9/9/17.
 //  Copyright © 2017 std-user01. All rights reserved.
@@ -10,29 +10,17 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    var videos: [Video]?
+    //var videos: [Video]?
     
-    /*
-    var videos : [Video] = {
-        var kanyeChannel = Channel()
-        kanyeChannel.name = "BalaIsCoolWithPython"
-        kanyeChannel.profileImageName = "bala_ss"
-        
-        var blankSpaceVideo = Video()
-        blankSpaceVideo.thumbnailImage = "bala_small"
-        blankSpaceVideo.title = "Taylor Swift - Blank Space"
-        blankSpaceVideo.channel = kanyeChannel
-        
-        blankSpaceVideo.numberOfViews = 2345678900
-        
-        var badBloodVideo = Video()
-        badBloodVideo.thumbnailImage = "bala_small"
-        badBloodVideo.title = "Taylor Swift - Bad blood Extra Extra Extra Extra"
-        badBloodVideo.channel = kanyeChannel
-        badBloodVideo.numberOfViews = 2345678900
-        return [blankSpaceVideo, badBloodVideo]
+    var gifys: [Video]? = {
+        var vs = [Video]()
+        return vs
     }()
- */
+    
+    var isPullingData: Bool?
+    var offset = 0
+    var limit = 25
+    var trending_url: String?
     
     // This is to select the First Icon on the CollectionView inside Menubar
     override func viewDidAppear(_ animated: Bool) {
@@ -65,62 +53,63 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.scrollIndicatorInsets = cvInsets
         setupMenuBar()
         setupNavBarButtons()
-        loadVideo()
+        loadGify()
     }
     
-    func loadVideo(){
+    func loadGify() {
+        let api_key = "826030dcd9cd46cd936145fab9db2897"
+        //let base_url = "https://api.giphy.com/v1/"
+        //let random_url = "https://api.giphy.com/v1/gifs/random?api_key=\(api_key)&tag=&rating=G&limit=25"
+        //let query = "cat"
+        //let search_url = "https://api.giphy.com/v1/gifs/search?api_key=\(api_key)&q=\(query)&limit=25&offset=0&rating=G&lang=en"
+        trending_url = "https://api.giphy.com/v1/gifs/trending?api_key=\(api_key)&limit=\(limit)&rating=G&offset=\(offset)"
+        let url =  URL(string: trending_url!)
         
-        let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
-
         let task = URLSession.shared.dataTask(with: url!) { (Data, URLResponse, Error) in
             if Error != nil {
                 print(Error!)
                 return
             }
-            
-            if let data = Data {
-                //print(data)
-                do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                let dict = json as! [[String:AnyObject]]
-                self.videos = [Video]()
-                    
-                    for item in dict {
+            do {
+                let json = try JSONSerialization.jsonObject(with: Data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! [String:AnyObject]
+                //print(json)
+                let data_array = json["data"] as! [[String:AnyObject]]
+                //self.gifys = [Video]()
+                
+//                if self.gifys! == nil {
+//                    self.gifys = [Video]()
+//                }
+                
+                for item in data_array {
                         let video = Video()
-                            video.title = item["title"] as! String?
-                            video.thumbnailImage = item["thumbnail_image_name"] as! String?
+                        video.title = item["source"] as! String?
+                        video.thumbnailImage = ( (item["images"] as! [String:AnyObject])["fixed_height"] as! [String:AnyObject] )["url"] as! String?
+                    
                         let channel = Channel()
-                            channel.name = (item["channel"] as! [String:AnyObject])["name"] as! String?
-                            channel.profileImageName = ( item["channel"] as! [String:AnyObject] )["profile_image_name"] as! String?
+                        channel.name = "TESTIING..."
+                        channel.profileImageName = ( (item["images"] as! [String:AnyObject])["480w_still"] as! [String:AnyObject] )["url"] as! String?
+                    //"bala_ss"
                         video.channel = channel
-                        video.numberOfViews = item["number_of_views"] as! NSNumber?
+                        video.numberOfViews = NSNumber(value: 4565434)
                         print(item)
-                        self.videos?.append(video)
-                        
-                }
-                    DispatchQueue.main.async {
-                        self.collectionView?.reloadData()
+                        self.gifys?.append(video)
+                    
                     }
-                    
-                    
-                } catch let jsonError {
-                    print(jsonError)
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
                 }
                 
+                
+            } catch let jsonError {
+                print(jsonError)
             }
             
-            /*
-             guard let data = NSString(data: Data!, encoding: String.Encoding.utf8.rawValue) else {
-             print("Error")
-             return
-             }
-             */
-            
-            
+            // Reload data from UI
         }
         task.resume()
         
     }
+    
     
     func setupNavBarButtons() {
         let searchImage =  UIImage(named: "search_icon")?.withRenderingMode(.alwaysOriginal)
@@ -132,9 +121,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
     }
     
+    
     func handleSearch(){
         print ("Search")
     }
+    
+    
     
     func handleMore(){
         print ("More")
@@ -144,7 +136,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
        let mb = MenuBar()
         // [PLEASE PAY ATTENTION TO THIS. SAVES TIME. ELSE AUTO CONSTRAINS WON'T WORK]
         mb.translatesAutoresizingMaskIntoConstraints=false
-        mb.backgroundColor =  UIColor.rgb(red: 230, green: 30, blue: 31)
+        mb.backgroundColor = UIColor.rgb(red: 75, green: 173, blue: 156)
+            //UIColor.rgb(red: 230, green: 30, blue: 31)
+        
         return mb
     }()
 
@@ -173,13 +167,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos?.count ?? 0
+        return gifys?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath) as! VideoCell
         
-        cell.video = videos?[indexPath.item]
+        cell.video = gifys?[indexPath.item]
         //cell.video?.title
         
         //cell.backgroundColor = UIColor.gray
@@ -195,6 +189,24 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // getting the scroll offset
+        let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height;
+        
+        if (bottomEdge >= scrollView.contentSize.height)
+        {
+            // we are at the bottom
+            print("Reaching the end ...")
+            if let status = isPullingData {
+                if status == true {
+                    print ("Downloading...")
+                } else {
+                    print ("Please wait...Already downloading..")
+                }
+            }
+        }
     }
 
 }

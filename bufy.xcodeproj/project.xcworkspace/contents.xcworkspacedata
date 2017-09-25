@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:youtube.xcodeproj">
+      location = "self:/Users/std-user01/Desktop/swift_playground/bufy/bufy.xcodeproj">
    </FileRef>
 </Workspace>

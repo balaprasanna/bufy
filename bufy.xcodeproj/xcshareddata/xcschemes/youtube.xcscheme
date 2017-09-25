@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66162D1B1F63ACEF006277C8"
-               BuildableName = "youtube.app"
-               BlueprintName = "youtube"
-               ReferencedContainer = "container:youtube.xcodeproj">
+               BuildableName = "bufy.app"
+               BlueprintName = "bufy"
+               ReferencedContainer = "container:bufy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66162D2F1F63ACF0006277C8"
-               BuildableName = "youtubeTests.xctest"
-               BlueprintName = "youtubeTests"
-               ReferencedContainer = "container:youtube.xcodeproj">
+               BuildableName = "bufyTests.xctest"
+               BlueprintName = "bufyTests"
+               ReferencedContainer = "container:bufy.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "66162D3A1F63ACF0006277C8"
-               BuildableName = "youtubeUITests.xctest"
-               BlueprintName = "youtubeUITests"
-               ReferencedContainer = "container:youtube.xcodeproj">
+               BuildableName = "bufyUITests.xctest"
+               BlueprintName = "bufyUITests"
+               ReferencedContainer = "container:bufy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66162D1B1F63ACEF006277C8"
-            BuildableName = "youtube.app"
-            BlueprintName = "youtube"
-            ReferencedContainer = "container:youtube.xcodeproj">
+            BuildableName = "bufy.app"
+            BlueprintName = "bufy"
+            ReferencedContainer = "container:bufy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66162D1B1F63ACEF006277C8"
-            BuildableName = "youtube.app"
-            BlueprintName = "youtube"
-            ReferencedContainer = "container:youtube.xcodeproj">
+            BuildableName = "bufy.app"
+            BlueprintName = "bufy"
+            ReferencedContainer = "container:bufy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "66162D1B1F63ACEF006277C8"
-            BuildableName = "youtube.app"
-            BlueprintName = "youtube"
-            ReferencedContainer = "container:youtube.xcodeproj">
+            BuildableName = "bufy.app"
+            BlueprintName = "bufy"
+            ReferencedContainer = "container:bufy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
